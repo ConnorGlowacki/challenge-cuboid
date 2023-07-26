@@ -25,12 +25,6 @@ void main(int argc, char **argv)
 	long x = strtol(argv[1], &ep, 10);
 	printf("\n");
 
-	if (errno != 0 || *ep != '\0')
-	{
-		perror("Error in conversion");
-		return;
-	}
-
 	printf("Cuboid width: ");
 	printf(argv[2]);
 	long y = strtol(argv[2], &ep, 10);
@@ -40,6 +34,12 @@ void main(int argc, char **argv)
 	printf(argv[3]);
 	long z = strtol(argv[3], &ep, 10);
 	printf("\n");
+
+	if (errno != 0 || *ep != '\0')
+	{
+		perror("Error in conversion");
+		return;
+	}
 
 	// Allocate memory to store cuboid shape characters. Multiple by
 	// 2 because that will probably be enough space
@@ -51,6 +51,7 @@ void main(int argc, char **argv)
 	generate_cuboid(cuboid, x, y, z);
 
 	printf("%s", cuboid);
+	printf("\n");
 	printf("\n");
 }
 
@@ -75,10 +76,10 @@ height Z is this way \\
 Underscores hug the front slash above middle edge (0 <= # console lines - height = 4 = width + 1)
 Underscores hug the back slack below middle edge (# console lines - height > 4 = width + 1 )
 When line # = 0, spaces = 4
-But when 0 < line # < # console lines - height, then spaces = 3 - line #
-Alternatively, when # console lines - height < line # < # console lines, then spaces = line # - 4
+But when 0 < line # < width, then spaces = 3 - line # = width - line #
+Alternatively, when width < line # < # console lines, then spaces = line # - 4
 YZ plane consists of /\ and \/ repeats (n)
-When 0 < line # < # console lines - height, then n = line # for /\
+When 0 < line # < width, then n = line # for /\
 # console lines - height < line # < # console lines, then n = # console lines - line # for \/
 */
 
